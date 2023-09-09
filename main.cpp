@@ -11,24 +11,16 @@ int main()
     int n_counter = 0;
 
     char data[] = "data.txt";
-    FILE *fp = fopen("data.txt", "r+"); // Открытие файла с текстом, присвоение  режима чтения + записи
-    char **string = (char**)malloc(sizeof(char*)); // Выделяем память для массива текста + запись его адреса
-    while (!feof(fp)) // Начинаем бежать по файлу
-    {
-        string[i] = (char*)malloc(sizeof(char)* 256); //Выделяем память под 256 символов 
-        fgets(string[i], 256, fp); //Записываем по <=256 символов (построчно)
-        i++;
-        string = (char**)realloc(string, sizeof(char*)*(i + 1)); // Срезает лишнюю память
-    } // TODO fread;
+    FILE *fp = fopen("data.txt", "r+");
 
-    i = 0;    
+    struct stat statbuf;
 
-    while (string [i] != "EOF")
-    {
-        if (string [i] == "\n") n_counter++;
-    }
+    fstat(fileno(fp), &statbuf);
 
-    printf ("there are %d lines in this file", n_counter);
+    off_t text_size = statbuf.st_size;
+
+    char *buf;
+    buf = (char*) calloc (statbuf.st_size, sizeof(char));
 
     // TODO free all allocated memory
 
