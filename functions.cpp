@@ -107,20 +107,45 @@ int my_strcmp(char *String1, char *String2)
     assert (String1 != NULL);
     assert (String2 != NULL);
 
-    int i;
+    int min_length = 0;
 
-    for (i = 0; String1[i] == String2[i]; i++)
+    int length1 = strlen (String1);
+    int length2 = strlen (String2);
+
+    if (length1 <= length2) 
     {
-        if (isalpha (String1[i]) == 0 || isalpha (String2[i]) == 0)
-            continue;
+        min_length = length1;
+    }
+    else 
+    {
+        min_length = length2;
+    }
 
-        if (String1[i] == '\0' || String2[i] == '\0')  //aaa.b aaaaa
+    int i = 0;
+    int j = 0;
+
+    while ((i < min_length) && (j < min_length))
+    {
+        if (isalpha (String1[i]) == 0)
         {
-            return 0;
+            i++;
+        }
+        else if (!isalpha (String2[j]) == 0) 
+        {
+            j++;
+        }
+        else if (String1[i] != String2[j]) 
+        {
+            return ((int) String1[i] - (int) String2[j]);
+        }
+        else 
+        {
+            i++;
+            j++;
         }
     }
         
-    return String1[i] - String2[i];
+    return (length1 - length2);
 }
 
 
