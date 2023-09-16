@@ -1,10 +1,10 @@
 COMPILER = g++
 FLAGS = -g -ggdb3
 DOP_FLAGS = -Wall -Wextra
-ASSAN = -fsanitize=address
+ASSAN = -lasan -fsanitize=address
 
 FLAGS += $(DOP_FLAGS)
-# FLAGS += $(ASSAN)
+#FLAGS += $(ASSAN)
 
 
 all: onegin

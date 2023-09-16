@@ -7,11 +7,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <assert.h>
+#include <ctype.h>
 
 
 int read_data(char **buf, char *file_name)
 {
-    FILE *fp = fopen(file_name, "r+");
+    FILE *fp = fopen(file_name, "rb");
 
     struct stat statbuf;
 
@@ -40,12 +42,12 @@ void array_of_pointers_generator(char **text, char *buf, int amount_of_cymbols)
     int line = 0;
     int i = 0;
 
-    for (i = 0; i < amount_of_cymbols; i++)
+    for (i = 0; i < amount_of_cymbols - 1; i++) 
     {
         if (buf[i] == '\0')
         {   
             if (buf[i + 1] == '\0') continue;
-            
+
             text[line] = (buf + i + 1);
             line++;
         }
@@ -101,22 +103,32 @@ void print_line(char **text, int n_counter)
 
 int my_strcmp(char *String1, char *String2)
 {
+    printf ("%p %p\n", String1, String2);
+    assert (String1 != NULL);
+    assert (String2 != NULL);
+
     int i;
 
     for (i = 0; String1[i] == String2[i]; i++)
     {
-        if (String1[i] == '\0') 
+        if (isalpha (String1[i]) == 0 || isalpha (String2[i]) == 0)
+            continue;
+
+        if (String1[i] == '\0' || String2[i] == '\0')  //aaa.b aaaaa
         {
             return 0;
         }
     }
-
+        
     return String1[i] - String2[i];
 }
 
 
 int compare_strings_alphabet (const void *String1, const void *String2)
 {   
+    assert (String1 != NULL);
+    assert (String2 != NULL);
+
     return my_strcmp (*(char**) String1, *(char**) String2);
 }
 
