@@ -130,7 +130,7 @@ int my_strcmp(char *String1, char *String2)
         {
             i++;
         }
-        else if (!isalpha (String2[j]) == 0) 
+        else if (isalpha (String2[j]) == 0) 
         {
             j++;
         }
@@ -148,6 +148,52 @@ int my_strcmp(char *String1, char *String2)
     return (length1 - length2);
 }
 
+int my_strcmp_back(char *String1, char *String2)
+{
+    printf ("%p %p\n", String1, String2);
+    assert (String1 != NULL);
+    assert (String2 != NULL);
+
+    int min_length = 0;
+
+    int length1 = strlen (String1);
+    int length2 = strlen (String2);
+
+    if (length1 <= length2) 
+    {
+        min_length = length1;
+    }
+    else 
+    {
+        min_length = length2;
+    }
+
+    int i = 0;
+    int j = 0;
+
+    while ((i < min_length) && (j < min_length))
+    {
+        if (isalpha (String1[length1 - i]) == 0)
+        {
+            i++;
+        }
+        else if (isalpha (String2[length2 - j]) == 0) 
+        {
+            j++;
+        }
+        else if (String1[length1 - i] != String2[length2 - j]) 
+        {
+            return ((int) String1[length1 - i] - (int) String2[length2 - j]);
+        }
+        else 
+        {
+            i++;
+            j++;
+        }
+    }
+        
+    return (length1 - length2);
+}
 
 int compare_strings_alphabet (const void *String1, const void *String2)
 {   
@@ -155,6 +201,14 @@ int compare_strings_alphabet (const void *String1, const void *String2)
     assert (String2 != NULL);
 
     return my_strcmp (*(char**) String1, *(char**) String2);
+}
+
+int compare_strings_alphabet_back (const void *String1, const void *String2)
+{   
+    assert (String1 != NULL);
+    assert (String2 != NULL);
+
+    return my_strcmp_back (*(char**) String1, *(char**) String2);
 }
 
 void print_array_in_file (char **text, int n_counter, char *file_name)

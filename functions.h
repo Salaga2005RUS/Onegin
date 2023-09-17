@@ -10,5 +10,7 @@ int my_strcmp(char *String1, char *String2);
 int compare_strings_alphabet (const void *String1, const void *String2);
 int fake_cymbol(char cymbol);
 void print_array_in_file (char **text, int n_counter, char *output_file_name);
+int compare_strings_alphabet_back (const void *String1, const void *String2);
+int my_strcmp_back(char *String1, char *String2);
 
 #endif
