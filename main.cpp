@@ -10,16 +10,17 @@ int main()
     char *buf = NULL;
     char **text1 = NULL;
     char **text2 = NULL;
+    FileInformation file_information;
 
-    file_information.amount_of_cymbols = read_file_to_buffer(&buf, input_file_name);
+    file_information.amount_of_symbols = read_file_to_buffer(&buf, input_file_name);
 
-    file_information.n_counter = separate_buf_on_lines(buf, file_information.amount_of_cymbols);
+    file_information.n_counter = separate_buf_on_lines(buf, file_information.amount_of_symbols);
 
-    initialize_array_of_pointers(&text1, file_information.file_information.n_counter + 1);
-    fill_array_of_pointers(text1, buf, file_information.amount_of_cymbols);
+    initialize_array_of_pointers(&text1, file_information.n_counter + 1);
+    fill_array_of_pointers(text1, buf, file_information.amount_of_symbols);
 
     initialize_array_of_pointers(&text2, file_information.n_counter + 1);
-    fill_array_of_pointers(text2, buf, file_information.amount_of_cymbols);
+    fill_array_of_pointers(text2, buf, file_information.amount_of_symbols);
 
     qsort(text1, file_information.n_counter, sizeof(char*), compare_strings_alphabet);
 

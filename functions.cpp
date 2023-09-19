@@ -32,12 +32,12 @@ void initialize_array_of_pointers(char ***text, int number_of_elements)
 }
 
 
-void fill_array_of_pointers(char **text, char *buf, int amount_of_cymbols)
+void fill_array_of_pointers(char **text, char *buf, int amount_of_symbols)
 {
     int line = 0;
     int i = 0;
 
-    for (i = 0; i < amount_of_cymbols - 1; i++) 
+    for (i = 0; i < amount_of_symbols - 1; i++) 
     {
         if (buf[i] == '\0')
         {   
@@ -50,11 +50,11 @@ void fill_array_of_pointers(char **text, char *buf, int amount_of_cymbols)
 }
 
 
-int separate_buf_on_lines(char *buf, int amount_of_cymbols)
+int separate_buf_on_lines(char *buf, int amount_of_symbols)
 {
     int n_counter = 0;
 
-    for (int i = 0; i < amount_of_cymbols; i++)
+    for (int i = 0; i < amount_of_symbols; i++)
     {
         if (buf[i] == '\n') 
         {
@@ -66,38 +66,22 @@ int separate_buf_on_lines(char *buf, int amount_of_cymbols)
     return n_counter;
 }
 
-define SYMBOL_EQUAL(x) (cymbol == (x))
+#define SYMBOL_EQUAL(x) (symbol == (x))
 
-int fake_symbol_define(char cymbol)
+int fake_symbol_define(char symbol)
 {
-    
     if (SYMBOL_EQUAL('\'') || SYMBOL_EQUAL('\"') || SYMBOL_EQUAL('\n') || SYMBOL_EQUAL('\0') 
      || SYMBOL_EQUAL('(')  || SYMBOL_EQUAL('[')  || SYMBOL_EQUAL('{')  || SYMBOL_EQUAL('-') 
      || SYMBOL_EQUAL('.')  || SYMBOL_EQUAL(' ')  || SYMBOL_EQUAL('\t')) 
         return 1;
     else return 0;
-    }
 }
 
 #undef SYMBOL_EQUAL
 
-void print_line(char **text, int n_counter)
-{   
-    int i = 0;
-
-    for (i = 0; i < n_counter + 1; i++)
-    {
-        if (!fake_symbol_define(text[i][0]))
-        { 
-            printf ("%s\n", text[i]);
-        }
-    }
-}
-
 
 int my_strcmp(char *String1, char *String2)
 {
-    printf ("%p %p\n", String1, String2);
     assert (String1 != NULL);
     assert (String2 != NULL);
 
