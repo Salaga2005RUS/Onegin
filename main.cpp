@@ -1,6 +1,4 @@
-//main_file
-
-#include "functions.h"
+#include "onegin.hpp"
 
 #include <stdlib.h>
 
@@ -9,27 +7,27 @@ int main()
     char input_file_name[] = "data.txt";
     char output_file_name[] = "data_sort.txt";
     char output_file_name_back[] = "data_sort_back.txt";
-    char *buf;
-    char **text1;
-    char **text2;
+    char *buf = NULL;
+    char **text1 = NULL;
+    char **text2 = NULL;
 
-    int amount_of_cymbols = read_data(&buf, input_file_name);
+    file_information.amount_of_cymbols = read_file_to_buffer(&buf, input_file_name);
 
-    int n_counter = n_0_replacement(buf, amount_of_cymbols);
+    file_information.n_counter = separate_buf_on_lines(buf, file_information.amount_of_cymbols);
 
-    array_of_pointers_init(&text1, n_counter + 1);
-    array_of_pointers_generator(text1, buf, amount_of_cymbols);
+    initialize_array_of_pointers(&text1, file_information.file_information.n_counter + 1);
+    fill_array_of_pointers(text1, buf, file_information.amount_of_cymbols);
 
-    array_of_pointers_init(&text2, n_counter + 1);
-    array_of_pointers_generator(text2, buf, amount_of_cymbols);
+    initialize_array_of_pointers(&text2, file_information.n_counter + 1);
+    fill_array_of_pointers(text2, buf, file_information.amount_of_cymbols);
 
-    qsort(text1, n_counter, sizeof(char*), compare_strings_alphabet);
+    qsort(text1, file_information.n_counter, sizeof(char*), compare_strings_alphabet);
 
-    print_array_in_file (text1, n_counter, output_file_name);
+    print_array (text1, file_information.n_counter, output_file_name);
 
-    qsort(text2, n_counter, sizeof(char*), compare_strings_alphabet_back);
+    qsort(text2, file_information.n_counter, sizeof(char*), compare_strings_alphabet_back);
 
-    print_array_in_file (text2, n_counter, output_file_name_back);
+    print_array (text2, file_information.n_counter, output_file_name_back);
 
     free(text1);
     free(text2);
